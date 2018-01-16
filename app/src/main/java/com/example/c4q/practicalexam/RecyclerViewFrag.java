@@ -53,7 +53,7 @@ public class RecyclerViewFrag extends Fragment {
     }
      public void setRecyclerView(){
          List<Model> modelList = new ArrayList<>();
-         for(int i =0;i<=10;i++){
+         for(int i =0;i<=1000000;i++){
              modelList.add(new Model(i));
          }
 
