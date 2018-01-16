@@ -1,5 +1,6 @@
 package com.example.c4q.practicalexam;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -43,35 +44,45 @@ public class LoopActivity extends AppCompatActivity {
 
         loopText = findViewById(R.id.loop_text);
 
+        LoopNumbers loopNumbers = new LoopNumbers();
+        loopNumbers.execute(0);
+
     }
-    private class LoopNumbers extends AsyncTask<Integer, Integer, Integer>{
+
+    private class LoopNumbers extends AsyncTask<Integer, Integer, Integer> {
 
         @Override
         protected void onPreExecute() {
-            super.onPreExecute();
+            loopText.setText("About to start looping...");
         }
 
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            super.onProgressUpdate(values);
-        }
-
-        @Override
-        protected void onPostExecute(Integer integer) {
-            super.onPostExecute(integer);
-
-        }
 
         @Override
         protected Integer doInBackground(Integer... integers) {
 
-                int count = 0;
-            for (int i = 0 ; i <= 1000000; i++) {
-                    count = i;
+            int count = 0;
+            for (int i = 0; i <= 100000; i++) {
+                count = i;
                 publishProgress(i);
-                
+
             }
             return count;
+        }
+
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            loopText.setText("Loops Completed: " + values[0]);
+
+
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            loopText.setText("Loops completed: " + result);
+            Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(i);
+
 
         }
     }
